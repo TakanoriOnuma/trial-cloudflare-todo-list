@@ -1,0 +1,18 @@
+{
+  "name": "server",
+  "private": true,
+  "scripts": {
+    "postinstall": "npm run types:worker",
+    "types:worker": "wrangler types",
+    "dev": "mkdir -p ../web/dist && wrangler dev"
+  },
+  "dependencies": {
+    "wrangler": "^4.34.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.1"
+  },
+  "volta": {
+    "extends": "../package.json"
+  }
+}

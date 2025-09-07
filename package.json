@@ -4,9 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "workspaces": [
+    "server",
     "web"
   ],
   "scripts": {
+    "w:server": "npm run -w server",
     "w:web": "npm run -w web"
   },
   "volta": {
