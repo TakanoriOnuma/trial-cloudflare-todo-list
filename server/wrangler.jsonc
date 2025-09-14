@@ -2,15 +2,25 @@
   "$schema": "../node_modules/wrangler/config-schema.json",
   "name": "trial-cloudflare-todo-list",
   "main": "index.ts",
-  "compatibility_date": "2025-09-05",
+  "compatibility_date": "2025-09-02",
   "assets": {
     "directory": "../web/dist",
     "not_found_handling": "single-page-application",
     "run_worker_first": ["/api/*"]
   },
+  "dev": {
+    "port": 5000
+  },
   "observability": {
     "logs": {
       "enabled": true
     }
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "HONO_TODO",
+      "id": "d6734a26c8a34cd2a3bee977634732c7",
+      "preview_id": "53b366ef042e456b8253688278e0fc42"
+    }
+  ]
 }
