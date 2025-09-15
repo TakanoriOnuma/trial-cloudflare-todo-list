@@ -11,6 +11,8 @@
   "dev": {
     "port": 5000
   },
+  // この設定入れても自動でEnabledにならなかったのでダッシュボードから設定した
+  "preview_urls": true,
   "observability": {
     "logs": {
       "enabled": true
@@ -20,6 +22,7 @@
     {
       "binding": "HONO_TODO",
       "id": "d6734a26c8a34cd2a3bee977634732c7",
+      // デプロイプレビューでは参照してくれない？
       "preview_id": "53b366ef042e456b8253688278e0fc42"
     }
   ]
