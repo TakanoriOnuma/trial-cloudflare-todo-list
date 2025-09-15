@@ -7,8 +7,6 @@ export type Todo = {
   title: string;
   /** 完了したか */
   completed: boolean;
-  /** 締切 */
-  deadline?: string;
   /** 作成日 */
   created_at: string;
 };

@@ -1,11 +1,39 @@
 <script setup lang="ts">
-import type { Todo } from "../api/todo";
+import {
+  useMutationDeleteTodo,
+  useMutationEditTodo,
+  type Todo,
+} from "../api/todo";
 import { formatDate } from "date-fns";
 
-defineProps<{
+const { mutate: mutateEditTodo } = useMutationEditTodo();
+const { mutate: mutateDeleteTodo } = useMutationDeleteTodo();
+
+const props = defineProps<{
   /** TODO項目 */
   todo: Todo;
 }>();
+
+function onChangeCompleted(event: Event) {
+  const target = event.target as HTMLInputElement;
+  const completed = target.checked;
+  console.log(completed);
+  mutateEditTodo({
+    todoId: props.todo.id,
+    newTodo: {
+      ...props.todo,
+      completed,
+    },
+  });
+}
+
+function onRemove() {
+  const result = confirm("本当に削除しますか？");
+  if (!result) {
+    return;
+  }
+  mutateDeleteTodo(props.todo.id);
+}
 </script>
 
 <template lang="pug">
@@ -15,14 +43,15 @@ div
       label
         input(
           type="checkbox"
-          :checked="todo.completed"
+          :checked="props.todo.completed"
+          @change="onChangeCompleted"
         )
         | 完了
-      button() 削除
-    .todo-item__content {{ todo.title }}
+      button(@click="onRemove") 削除
+    .todo-item__content {{ props.todo.title }}
     .todo-item__footer
-      .todo-id ID: {{ todo.id }}
-      .todo-created-at 作成日: {{ formatDate(todo.created_at, 'yyyy/MM/dd') }}
+      .todo-id ID: {{ props.todo.id }}
+      .todo-created-at 作成日: {{ formatDate(props.todo.created_at, 'yyyy/MM/dd') }}
 </template>
 
 <style lang="scss" scoped>
