@@ -9,11 +9,16 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tanstack/vue-query": "^5.87.4",
+    "date-fns": "^4.1.0",
     "vue": "^3.5.18"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
+    "@vue/language-plugin-pug": "^3.0.7",
     "@vue/tsconfig": "^0.7.0",
+    "pug": "^3.0.3",
+    "sass-embedded": "^1.92.1",
     "typescript": "~5.8.3",
     "vite": "^7.1.2",
     "vue-tsc": "^3.0.5"

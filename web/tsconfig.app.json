@@ -11,5 +11,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
+  "vueCompilerOptions": {
+    "plugins": ["@vue/language-plugin-pug"]
+  },
   "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue"]
 }
