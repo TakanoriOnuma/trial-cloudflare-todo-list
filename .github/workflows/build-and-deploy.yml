@@ -71,3 +71,20 @@ jobs:
             Preview URL: ${{ steps.alias.outputs.url }}
             <sub>Deployment URL: ${{ steps.deploy-preview.outputs.deployment-url }}</sub>
           comment-tag: "cloudflare-workers-deployment"
+
+      - name: Create GitHub Deployment
+        if: ${{ github.event_name == 'pull_request' }}
+        id: deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: "preview"
+
+      - name: Set Deployment Status
+        if: ${{ github.event_name == 'pull_request' }}
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: "success"
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          environment-url: ${{ steps.alias.outputs.url }}
