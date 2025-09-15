@@ -11,6 +11,7 @@
   "dev": {
     "port": 5000
   },
+  // この設定入れても自動でEnabledにならなかったのでダッシュボードから設定した
   "preview_urls": true,
   "observability": {
     "logs": {
