@@ -35,6 +35,7 @@ jobs:
 
       - name: Deploy to Cloudflare Workers In Production Mode
         if: ${{ github.event_name == 'push' }}
+        id: deploy
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -42,6 +43,23 @@ jobs:
           workingDirectory: server
           command: "deploy"
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create GitHub Deployment
+        if: ${{ github.event_name == 'push' }}
+        id: deployment
+        uses: chrnorm/deployment-action@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          environment: "Cloudflare Workers Production"
+
+      - name: Set Deployment Status
+        if: ${{ github.event_name == 'push' }}
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          state: "success"
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          environment-url: ${{ steps.deploy.outputs.deployment-url }}
 
       - name: Alias Deployment URL
         if: ${{ github.event_name == 'pull_request' }}
