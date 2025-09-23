@@ -63,9 +63,12 @@ jobs:
         if: ${{ github.event_name == 'pull_request' }}
         id: alias
         run: |
-          NAME="deploy-preview-${{ github.event.pull_request.number }}"
-          echo "name=${NAME}" >> $GITHUB_OUTPUT
-          echo "url=https://${NAME}-trial-cloudflare-todo-list.numa-san-1024.workers.dev" >> $GITHUB_OUTPUT
+          echo "name=${ALIAS_NAME}" >> $GITHUB_OUTPUT
+          echo "url=https://${ALIAS_NAME}-${WORKER_NAME}.${SUBDOMAIN}.workers.dev" >> $GITHUB_OUTPUT
+        env:
+          ALIAS_NAME: deploy-preview-${{ github.event.pull_request.number }}
+          WORKER_NAME: trial-cloudflare-todo-list
+          SUBDOMAIN: numa-san-1024
 
       - name: Deploy to Cloudflare Workers In Preview Mode
         if: ${{ github.event_name == 'pull_request' }}
